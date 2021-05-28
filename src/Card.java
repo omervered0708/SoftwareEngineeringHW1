@@ -1,22 +1,10 @@
 public class Card
 {
-    private int number;
-    private Shape shape;
+    private final int number;
+    private final Shape shape;
 
     public int getNumber() {
         return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
-    public Shape getShape() {
-        return shape;
-    }
-
-    public void setShape(Shape shape) {
-        this.shape = shape;
     }
 
     public Card(int number, Shape shape) {
@@ -24,7 +12,7 @@ public class Card
         this.shape = shape;
     }
     //returns -1 if the current card number is less than the other
-    //returns -1 if the current card number is greater than the other
+    //returns 1 if the current card number is greater than the other
     //and return 0 if they are equal
     public int compare(Card  other)
     {

@@ -2,7 +2,8 @@ import java.util.ArrayList;
 
 public class Deck {
     private ArrayList<Card> cardArrayList;
-    public static Shape[] shapes = {Shape.CLUBS, Shape.DIAMONDS, Shape.SPADES, Shape.HEARTS};
+    public static Shape[] shapes = {Shape.CLUBS, Shape.DIAMONDS, Shape.SPADES,
+                                    Shape.HEARTS};
 
     public Deck(boolean buildFullDeck) {
         // initialize cardArrayList
@@ -51,8 +52,7 @@ public class Deck {
 
     // swap the cards in indices i%52 and j%52 in cardArrayList
     private void swapCards(int i, int j) {
-        Card temp = this.cardArrayList.get(i % 52);
-        this.cardArrayList.remove(i % 52);
+        Card temp = this.cardArrayList.remove(i % 52);
         this.cardArrayList.add(i%52, this.cardArrayList.get(j%52));
         this.cardArrayList.remove(j%52);
         this.cardArrayList.add(j%52, temp);

@@ -9,35 +9,26 @@ public class Player {
         prizeDeck = new Deck(false);
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Deck getGameDeck() {
-        return gameDeck;
-    }
-
-    public Deck getPrizeDeck() {
-        return prizeDeck;
-    }
-
     public void addToGameDeck(Card card) {
-         gameDeck.addCard(card);
+        this.gameDeck.addCard(card);
     }
     public void addToPrizeDeck(Card card) {
-        prizeDeck.addCard(card);
+        this.prizeDeck.addCard(card);
     }
 
     public void addToPrizeDeck(Deck deck) {
         while (!deck.isEmpty()) {
-            this.addToGameDeck(deck.removeTopCard());
+            this.addToPrizeDeck(deck.removeTopCard());
         }
     }
     public Card drawCard() {
-        if(gameDeck.isEmpty()){
+        if(gameDeck.isEmpty() && !prizeDeck.isEmpty()) {
             prizeDeck.shuffle();
             gameDeck = prizeDeck;
             prizeDeck = new Deck(false);
+        }
+        else if (this.outOfCards()) {
+            return null;
         }
         return gameDeck.removeTopCard();
     }

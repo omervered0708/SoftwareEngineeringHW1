@@ -1,9 +1,8 @@
-import java.util.ArrayList;
-
 public class WarGame {
-    private Player player1;
-    private Player player2;
-    private Deck mainDeck;
+    private final Player player1;
+    private final Player player2;
+    // there is no use for two decks to hold thrown cards, one is sufficient
+    private final Deck mainDeck;
     private int winner;
     private int roundCount;
 
@@ -29,6 +28,7 @@ public class WarGame {
         this.roundCount = 0;
         System.out.println("Initializing the game...");
         this.mainDeck.shuffle();
+        // distribute cards
         for (int i = 0; !this.mainDeck.isEmpty(); i++) {
             if (i%2 == 0) {
                 this.player1.addToGameDeck(this.mainDeck.removeTopCard());
@@ -55,7 +55,7 @@ public class WarGame {
             return this.player2.toString();
         }
         else {
-            return "both players lost";
+            return "both players lost (both ran out of cards simultaneously)";
         }
     }
 
@@ -72,7 +72,7 @@ public class WarGame {
     // negative if second player's card was stronger,
     // zero otherwise
     private int throwProcedure(boolean startOfWar) {
-        // check for winner
+        // check for winner (check that both have cards)
         int win = this.winCheck();
         if (win != 0) {
             this.winner = win;
@@ -93,7 +93,7 @@ public class WarGame {
         this.mainDeck.addCard(firstCard);
         this.mainDeck.addCard(secondCard);
 
-        return firstCard.getNumber() - secondCard.getNumber();
+        return firstCard.compare(secondCard);
     }
 
     // return 1 if player 1 won, 2 if player 2 won, 0 if no winner,
@@ -136,7 +136,8 @@ public class WarGame {
         System.out.println("Starting a war...");
         int upperHand = 0;
         for (int i = 0; i < 3; i++) {
-            upperHand = this.throwProcedure(true);
+            upperHand = i < 2 ? this.throwProcedure(true) :
+                                this.throwProcedure(false);
             if (this.winner != 0) {
                 return;
             }
@@ -152,7 +153,7 @@ public class WarGame {
         }
         else {
             // if another tie breaker needed perform it recursively
-            tieBreaker();
+            this.tieBreaker();
         }
     }
 }
