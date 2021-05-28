@@ -22,24 +22,24 @@ public class Player {
     }
 
      public void addToGameDeck(Card card) {
-         gameDeck.addCard(card);
+         this.gameDeck.addCard(card);
      }
     public void addToPrizeDeck(Card card) {
-        prizeDeck.addCard(card);
+        this.prizeDeck.addCard(card);
     }
      public Card drawCard() {
          if(gameDeck.isEmpty()){
-             prizeDeck.shuffle();
-             gameDeck = prizeDeck;
-             prizeDeck = new Deck(false);
+             this.prizeDeck.shuffle();
+             this.gameDeck = this.prizeDeck;
+             this.prizeDeck = new Deck(false);
          }
-         return gameDeck.removeTopCard();
+         return this.gameDeck.removeTopCard();
      }
      public  boolean outOfCards() {
-         return prizeDeck.isEmpty() && gameDeck.isEmpty();
+         return this.prizeDeck.isEmpty() && this.gameDeck.isEmpty();
      }
     @Override
     public String toString() {
-        return name;
+        return this.name;
     }
 }

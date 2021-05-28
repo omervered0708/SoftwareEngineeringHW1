@@ -56,7 +56,7 @@ public class Card
         else if(number == 13)
             picture = "King";
         if(picture.equals(""))
-            return number + "of" + this.getShapePicture();
+            return this.number + "of" + this.getShapePicture();
         return picture + "of" + this.getShapePicture();
 
 
