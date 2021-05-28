@@ -9,10 +9,6 @@ public class Player {
         prizeDeck = new Deck(false);
     }
 
-    public String getName() {
-        return name;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -21,17 +17,10 @@ public class Player {
         return gameDeck;
     }
 
-    public void setGameDeck(Deck gameDeck) {
-        this.gameDeck = gameDeck;
-    }
-
     public Deck getPrizeDeck() {
         return prizeDeck;
     }
 
-    public void setPrizeDeck(Deck prizeDeck) {
-        this.prizeDeck = prizeDeck;
-    }
      public void addToGameDeck(Card card) {
          gameDeck.addCard(card);
      }
