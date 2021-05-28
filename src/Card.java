@@ -23,6 +23,9 @@ public class Card
         this.number = number;
         this.shape = shape;
     }
+    //returns -1 if the current card number is less than the other
+    //returns -1 if the current card number is greater than the other
+    //and return 0 if they are equal
     public int compare(Card  other)
     {
         if(this.number < other.number)
@@ -31,6 +34,7 @@ public class Card
             return 0;
         return 1;
     }
+    //return the unicode of the shape
     private String getShapePicture(){
         return switch (shape) {
             case CLUBS -> "\u2663";
@@ -39,7 +43,7 @@ public class Card
             case DIAMONDS -> "\u2666";
         };
     }
-
+    //returns a string describing the card
     @Override
     public String toString() {
         String picture = "";
@@ -52,7 +56,7 @@ public class Card
         else if(number == 13)
             picture = "King";
         if(picture.equals(""))
-            return number + "of" + this.getShapePicture();
+            return this.number + "of" + this.getShapePicture();
         return picture + "of" + this.getShapePicture();
 
 
