@@ -11,7 +11,7 @@ public class WarGame {
         this.roundCount = 0;
         // create first and second player according to alphabetical order
         int stringComparison = firstName.compareTo(secondName);
-        if (stringComparison >= 0) {
+        if (stringComparison <= 0) {
             this.player1 = new Player(firstName);
             this.player2 = new Player(secondName);
         }
@@ -42,11 +42,14 @@ public class WarGame {
     public String start() {
         this.initializeGame();
 
-        while(this.winner == 0) {
+        do {
             System.out.println("------------------------- Round number " +
                     ++this.roundCount + " -------------------------");
             this.round();
-        }
+            if (this.winCheck()) {
+                break;
+            }
+        } while(this.winner == 0);
 
         if (this.winner == 1) {
             return this.player1.toString();
@@ -73,9 +76,7 @@ public class WarGame {
     // zero otherwise
     private int throwProcedure(boolean startOfWar) {
         // check for winner (check that both have cards)
-        int win = this.winCheck();
-        if (win != 0) {
-            this.winner = win;
+        if (this.winCheck()) {
             return 0;
         }
         Card firstCard = this.player1.drawCard();
@@ -96,19 +97,21 @@ public class WarGame {
         return firstCard.compare(secondCard);
     }
 
-    // return 1 if player 1 won, 2 if player 2 won, 0 if no winner,
-    // -1 if both lost (if all the cards are in the main deck)
-    private int winCheck() {
+    // return true of there is a decision or false otherwise
+    private boolean winCheck() {
         if (this.player1.outOfCards() && !this.player2.outOfCards()) {
-            return 2;
+            this.winner = 2;
+            return true;
         }
         else if (this.player2.outOfCards() && !this.player1.outOfCards()) {
-            return 1;
+            this.winner = 1;
+            return true;
         }
         else if (this.player1.outOfCards() && this.player2.outOfCards()) {
-            return -1;
+            this.winner = -1;
+            return true;
         }
-        else return 0;
+        else return false;
     }
 
     private void round() {
@@ -144,11 +147,11 @@ public class WarGame {
         }
 
         if (upperHand > 0) {
-            System.out.println(player1 + " won the war");
+            System.out.println(this.player1 + " won the war");
             this.takePrize(1);
         }
         else if (upperHand < 0) {
-            System.out.println(player1 + " won the war");
+            System.out.println(this.player2 + " won the war");
             this.takePrize(2);
         }
         else {

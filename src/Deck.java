@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Deck {
     private ArrayList<Card> cardArrayList;
-    public static Shape[] shapes = {Shape.CLUBS, Shape.DIAMONDS, Shape.SPADES,
+    public static Shape[] shapes = {Shape.SPADES, Shape.DIAMONDS, Shape.CLUBS,
                                     Shape.HEARTS};
 
     public Deck(boolean buildFullDeck) {
@@ -43,18 +43,24 @@ public class Deck {
     // shuffle the deck
     public void shuffle() {
         // run 50 iteration. in each iteration swap 2 cards in the deck
+        int deckSize = this.cardArrayList.size();
         for (int i = 0; i < 50; i++) {
-            int firstIndex = Main.rnd.nextInt(52);
-            int secondIndex = Main.rnd.nextInt(52);
+            int firstIndex = Main.rnd.nextInt(deckSize);
+            int secondIndex = Main.rnd.nextInt(deckSize);
             this.swapCards(firstIndex, secondIndex);
         }
     }
 
-    // swap the cards in indices i%52 and j%52 in cardArrayList
+    // swap the cards in indices i and j in cardArrayList
     private void swapCards(int i, int j) {
-        Card temp = this.cardArrayList.remove(i % 52);
-        this.cardArrayList.add(i%52, this.cardArrayList.get(j%52));
-        this.cardArrayList.remove(j%52);
-        this.cardArrayList.add(j%52, temp);
+        if (i != j) {
+            int biggerIndex = i > j ? i : j;
+            int smallerIndex = i > j ? j : i;
+            Card temp = this.cardArrayList.remove(biggerIndex);
+            this.cardArrayList.add(biggerIndex,
+                    this.cardArrayList.get(smallerIndex));
+            this.cardArrayList.remove(smallerIndex);
+            this.cardArrayList.add(smallerIndex, temp);
+        }
     }
 }
