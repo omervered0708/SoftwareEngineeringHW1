@@ -31,8 +31,30 @@ public class Card
             return 0;
         return 1;
     }
-    private char getShapeCharacter(){
-
+    private String getShapePicture(){
+        return switch (shape) {
+            case CLUBS -> "\u2663";
+            case HEARTS -> "\u2665";
+            case SPADES -> "\u2660";
+            case DIAMONDS -> "\u2666";
+        };
     }
 
+    @Override
+    public String toString() {
+        String picture = "";
+        if(number == 1)
+            picture ="Ace";
+        else if(number == 11)
+            picture = "Jack";
+        else if(number == 12)
+            picture = "Queen";
+        else if(number == 13)
+            picture = "King";
+        if(picture.equals(""))
+            return number + "of" + this.getShapePicture();
+        return picture + "of" + this.getShapePicture();
+
+
+    }
 }
