@@ -45,7 +45,7 @@ public class Deck {
         for (int i = 0; i < 50; i++) {
             int firstIndex = Main.rnd.nextInt(52);
             int secondIndex = Main.rnd.nextInt(52);
-
+            this.swapCards(firstIndex, secondIndex);
         }
     }
 

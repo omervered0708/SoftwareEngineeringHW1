@@ -21,23 +21,31 @@ public class Player {
         return prizeDeck;
     }
 
-     public void addToGameDeck(Card card) {
+    public void addToGameDeck(Card card) {
          gameDeck.addCard(card);
-     }
+    }
     public void addToPrizeDeck(Card card) {
         prizeDeck.addCard(card);
     }
-     public Card drawCard() {
-         if(gameDeck.isEmpty()){
-             prizeDeck.shuffle();
-             gameDeck = prizeDeck;
-             prizeDeck = new Deck(false);
-         }
-         return gameDeck.removeTopCard();
-     }
-     public  boolean outOfCards() {
-         return prizeDeck.isEmpty() && gameDeck.isEmpty();
-     }
+
+    public void addToPrizeDeck(Deck deck) {
+        while (!deck.isEmpty()) {
+            this.addToGameDeck(deck.removeTopCard());
+        }
+    }
+    public Card drawCard() {
+        if(gameDeck.isEmpty()){
+            prizeDeck.shuffle();
+            gameDeck = prizeDeck;
+            prizeDeck = new Deck(false);
+        }
+        return gameDeck.removeTopCard();
+    }
+
+    public  boolean outOfCards() {
+        return prizeDeck.isEmpty() && gameDeck.isEmpty();
+    }
+
     @Override
     public String toString() {
         return name;
