@@ -5,9 +5,11 @@ public class WarGame {
     private Player player2;
     private Deck mainDeck;
     private int winner;
+    private int roundCount;
 
     public WarGame(String firstName, String secondName) {
         this.winner = 0;
+        this.roundCount = 0;
         // create first and second player according to alphabetical order
         int stringComparison = firstName.compareTo(secondName);
         if (stringComparison >= 0) {
@@ -23,6 +25,8 @@ public class WarGame {
 
     // at the end of the method mainDeck is empty
     private void initializeGame() {
+        this.winner = 0;
+        this.roundCount = 0;
         System.out.println("Initializing the game...");
         this.mainDeck.shuffle();
         for (int i = 0; !this.mainDeck.isEmpty(); i++) {
@@ -39,6 +43,8 @@ public class WarGame {
         this.initializeGame();
 
         while(this.winner == 0) {
+            System.out.println("------------------------- Round number " +
+                    ++this.roundCount + " -------------------------");
             this.round();
         }
 
@@ -79,6 +85,10 @@ public class WarGame {
             System.out.println(this.player1 + " drew " + firstCard);
             System.out.println(this.player2 + " drew " + secondCard);
         }
+        else {
+            System.out.println(this.player1 + " drew a war card");
+            System.out.println(this.player2 + " drew a war card");
+        }
 
         this.mainDeck.addCard(firstCard);
         this.mainDeck.addCard(secondCard);
@@ -102,16 +112,18 @@ public class WarGame {
     }
 
     private void round() {
-        int upperHand = this.throwProcedure();
+        int upperHand = this.throwProcedure(false);
 
         if (this.winner != 0) {
             return;
         }
 
         if (upperHand > 0) {
+            System.out.println(this.player1 + " won");
             this.takePrize(1);
         }
         else if (upperHand < 0) {
+            System.out.println(this.player2 + " won");
             this.takePrize(2);
         }
         else {
@@ -124,7 +136,7 @@ public class WarGame {
         System.out.println("Starting a war...");
         int upperHand = 0;
         for (int i = 0; i < 3; i++) {
-            upperHand = this.throwProcedure();
+            upperHand = this.throwProcedure(true);
             if (this.winner != 0) {
                 return;
             }
