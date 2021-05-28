@@ -32,21 +32,25 @@ public class Player {
     public void setPrizeDeck(Deck prizeDeck) {
         this.prizeDeck = prizeDeck;
     }
-     public void addToGameDeck(Card card)
-     {
+     public void addToGameDeck(Card card) {
          gameDeck.addCard(card);
      }
-    public void addToPrizeDeck(Card card)
-    {
+    public void addToPrizeDeck(Card card) {
         prizeDeck.addCard(card);
     }
-     public Card drawCard()
-     {
+     public Card drawCard() {
          if(gameDeck.isEmpty()){
              prizeDeck.shuffle();
-             gameDeck
+             gameDeck = prizeDeck;
+             prizeDeck = new Deck(false);
          }
-
-
+         return gameDeck.removeTopCard();
      }
+     public  boolean outOfCards() {
+         return prizeDeck.isEmpty() && gameDeck.isEmpty();
+     }
+    @Override
+    public String toString() {
+        return name;
+    }
 }
