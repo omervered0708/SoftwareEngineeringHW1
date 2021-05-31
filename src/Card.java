@@ -7,6 +7,7 @@ public class Card
         return number;
     }
 
+    //create a Card object with the given number and shape
     public Card(int number, Shape shape) {
         this.number = number;
         this.shape = shape;
