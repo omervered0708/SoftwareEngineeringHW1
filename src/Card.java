@@ -3,9 +3,7 @@ public class Card
     private final int number;
     private final Shape shape;
 
-    public int getNumber() {
-        return number;
-    }
+
 
     //create a Card object with the given number and shape
     public Card(int number, Shape shape) {
